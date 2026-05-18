@@ -53,6 +53,38 @@ def ask_gpt(client: OpenAI, prompt: str, model: str = "gpt-5-mini") -> Result:
     r.output_tokens = response.usage.completion_tokens
     return r
 
+def print_side_by_side(a: Result, b: Result, width: int = 60) -> None:
+    """Print two Results in two aligned columns."""
+    def wrap(text: str, w: int) -> list[str]:
+        """Break `text` into lines no wider than `w` characters."""
+        lines = []
+        for paragraph in text.splitlines() or [""]:
+            while len(paragraph) > w:
+                cut = paragraph.rfind(" ", 0, w)
+                if cut <= 0:
+                    cut = w
+                lines.append(paragraph[:cut])
+                paragraph = paragraph[cut:].lstrip()
+            lines.append(paragraph)
+        return lines
+
+    left_header = f"Claude ({a.model})"
+    right_header = f"GPT ({b.model})"
+    print(f"\n{left_header:<{width}}  | {right_header}")
+    print(f"{'-' * width}  | {'-' * width}")
+
+    left_lines = wrap(a.text, width)
+    right_lines = wrap(b.text, width)
+    for i in range(max(len(left_lines), len(right_lines))):
+        left = left_lines[i] if i < len(left_lines) else ""
+        right = right_lines[i] if i < len(right_lines) else ""
+        print(f"{left:<{width}}  | {right}")
+
+    print(f"{'-' * width}  | {'-' * width}")
+    print(f"{'latency: ' + f'{a.latency_s:.2f}s':<{width}}  | latency: {b.latency_s:.2f}s")
+    print(f"{'tokens in/out: ' + f'{a.input_tokens}/{a.output_tokens}':<{width}}  | "
+          f"tokens in/out: {b.input_tokens}/{b.output_tokens}")
+
 def main() -> None:
     load_dotenv()
 
@@ -74,15 +106,7 @@ def main() -> None:
     print("Asking GPT...")
     gpt_result = ask_gpt(openai_client, args.prompt)
 
-    print("\n--- Claude ---")
-    print(claude_result.text)
-    print(f"latency={claude_result.latency_s:.2f}s  "
-          f"tokens in/out={claude_result.input_tokens}/{claude_result.output_tokens}")
-
-    print("\n--- GPT ---")
-    print(gpt_result.text)
-    print(f"latency={gpt_result.latency_s:.2f}s  "
-          f"tokens in/out={gpt_result.input_tokens}/{gpt_result.output_tokens}")
+    print_side_by_side(claude_result, gpt_result)
 
 
 if __name__ == "__main__":
