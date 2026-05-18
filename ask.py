@@ -20,16 +20,19 @@ class Result:
     output_tokens: int = 0
     latency_s: float = 0.0
 
-def ask_claude(client: Anthropic, prompt: str, model: str = "claude-haiku-4-5") -> Result:
+def ask_claude(client: Anthropic, prompt: str, model: str = "claude-haiku-4-5",system: str | None = None) -> Result:
     """Send a prompt to Claude, return a Result with text + tokens + latency."""
     r = Result(provider="anthropic", model=model)
 
     t0 = time.time()
-    response = client.messages.create(
+    kwargs = dict(
         model=model,
         max_tokens=1024,
         messages=[{"role": "user", "content": prompt}],
     )
+    if system:
+        kwargs["system"] = system
+    response = client.messages.create(**kwargs)
     r.latency_s = time.time() - t0
 
     r.text = response.content[0].text
@@ -37,14 +40,19 @@ def ask_claude(client: Anthropic, prompt: str, model: str = "claude-haiku-4-5") 
     r.output_tokens = response.usage.output_tokens
     return r
 
-def ask_gpt(client: OpenAI, prompt: str, model: str = "gpt-5-mini") -> Result:
+def ask_gpt(client: OpenAI, prompt: str, model: str = "gpt-5-mini",system: str | None = None) -> Result:
     """Send a prompt to GPT, return a Result with text + tokens + latency."""
     r = Result(provider="openai", model=model)
 
     t0 = time.time()
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
+
     response = client.chat.completions.create(
         model=model,
-        messages=[{"role": "user", "content": prompt}],
+        messages=messages,
     )
     r.latency_s = time.time() - t0
 
@@ -53,18 +61,21 @@ def ask_gpt(client: OpenAI, prompt: str, model: str = "gpt-5-mini") -> Result:
     r.output_tokens = response.usage.completion_tokens
     return r
 
-def stream_claude(client: Anthropic, prompt: str, model: str = "claude-haiku-4-5") -> Result:
+def stream_claude(client: Anthropic, prompt: str, model: str = "claude-haiku-4-5",system: str | None = None) -> Result:
     """Stream Claude's response, printing tokens as they arrive."""
     r = Result(provider="anthropic", model=model)
     print(f"\n--- Claude ({model}) ---")
 
     t0 = time.time()
     ttft = None
-    with client.messages.stream(
+    kwargs = dict(
         model=model,
         max_tokens=1024,
         messages=[{"role": "user", "content": prompt}],
-    ) as stream:
+    )
+    if system:
+        kwargs["system"] = system
+    with client.messages.stream(**kwargs) as stream:
         for text in stream.text_stream:
             if ttft is None:
                 ttft = time.time() - t0
@@ -82,16 +93,22 @@ def stream_claude(client: Anthropic, prompt: str, model: str = "claude-haiku-4-5
     return r
 
 
-def stream_gpt(client: OpenAI, prompt: str, model: str = "gpt-5-mini") -> Result:
+def stream_gpt(client: OpenAI, prompt: str, model: str = "gpt-5-mini",
+               system: str | None = None) -> Result:
     """Stream GPT's response, printing tokens as they arrive."""
     r = Result(provider="openai", model=model)
     print(f"\n--- GPT ({model}) ---")
+
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
 
     t0 = time.time()
     ttft = None
     stream = client.chat.completions.create(
         model=model,
-        messages=[{"role": "user", "content": prompt}],
+        messages=messages,
         stream=True,
         stream_options={"include_usage": True},
     )
@@ -156,6 +173,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Ask Claude and GPT the same question.")
     parser.add_argument("prompt", help="The question to ask both models.")
     parser.add_argument("--stream", action="store_true", help="Stream tokens as they arrive.")
+    parser.add_argument("--system", help="Optional system prompt to steer both models.")
     args = parser.parse_args()
 
     if not os.getenv("ANTHROPIC_API_KEY"):
@@ -175,13 +193,13 @@ def main() -> None:
     # print_side_by_side(claude_result, gpt_result)
 
     if args.stream:
-        claude_result = stream_claude(anthropic_client, args.prompt)
-        gpt_result = stream_gpt(openai_client, args.prompt)
+        claude_result = stream_claude(anthropic_client, args.prompt, system=args.system)
+        gpt_result = stream_gpt(openai_client, args.prompt, system=args.system)
     else:
         print("Asking Claude...")
-        claude_result = ask_claude(anthropic_client, args.prompt)
+        claude_result = ask_claude(anthropic_client, args.prompt, system=args.system)
         print("Asking GPT...")
-        gpt_result = ask_gpt(openai_client, args.prompt)
+        gpt_result = ask_gpt(openai_client, args.prompt, system=args.system)
         print_side_by_side(claude_result, gpt_result)
 
 
