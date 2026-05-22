@@ -1,0 +1,172 @@
+[
+  {
+    "id": "fact-1",
+    "category": "factual",
+    "prompt": "In one short paragraph, explain what mitochondria do in a cell.",
+    "claude": {
+      "text": "# The Role of Mitochondria\n\nMitochondria are the cell's powerhouses, responsible for generating energy in the form of ATP (adenosine triphosphate) through the process of cellular respiration. They break down glucose and other nutrients to produce this usable energy that powers nearly all cellular activities, from muscle contraction to protein synthesis. Additionally, mitochondria regulate calcium levels, produce heat, and play important roles in cell signaling and programmed cell death.",
+      "input_tokens": 22,
+      "output_tokens": 103,
+      "latency_s": 1.7162189483642578
+    },
+    "gpt": {
+      "text": "Mitochondria are membrane-bound organelles that generate most of a cell\u2019s usable energy by converting nutrients into ATP through oxidative phosphorylation; they also serve as metabolic hubs for processes like the citric acid cycle, help regulate cellular calcium levels and reactive oxygen species, and play key roles in programmed cell death (apoptosis). Each mitochondrion contains its own small genome and machinery for producing some of its proteins, reflecting its evolutionary origin from an ancestral symbiotic bacterium.",
+      "input_tokens": 20,
+      "output_tokens": 169,
+      "latency_s": 6.219884157180786
+    }
+  },
+  {
+    "id": "fact-2",
+    "category": "factual",
+    "prompt": "Name three differences between TCP and UDP. Be concise.",
+    "claude": {
+      "text": "# TCP vs UDP\n\n1. **Connection**: TCP is connection-oriented (requires handshake); UDP is connectionless.\n\n2. **Reliability**: TCP guarantees ordered, error-checked delivery; UDP does not.\n\n3. **Speed**: TCP is slower due to overhead; UDP is faster and lower latency.",
+      "input_tokens": 19,
+      "output_tokens": 71,
+      "latency_s": 1.2114171981811523
+    },
+    "gpt": {
+      "text": "- Connection: TCP is connection-oriented (three-way handshake); UDP is connectionless (no handshake).  \n- Reliability/order: TCP provides reliable, ordered delivery with ACKs and retransmits; UDP is best-effort (may lose, duplicate, or reorder packets).  \n- Overhead/control: TCP has flow and congestion control and larger overhead (20-byte header); UDP has minimal overhead (8-byte header) and no flow/congestion control.",
+      "input_tokens": 17,
+      "output_tokens": 290,
+      "latency_s": 5.532137870788574
+    }
+  },
+  {
+    "id": "creative-1",
+    "category": "creative",
+    "prompt": "Write a four-line poem about a coffee mug that has seen too much.",
+    "claude": {
+      "text": "# Worn and Weary\n\nThis ceramic vessel, cracked and stained with time,\nHas held the tears of mornings, dark as wine,\nThrough endless cups of bitter, burnt, and cold\u2014\nA silent witness to a life grown old.",
+      "input_tokens": 24,
+      "output_tokens": 58,
+      "latency_s": 1.4321551322937012
+    },
+    "gpt": {
+      "text": "Rings of morning settle like maps inside its curve,\nit cradled whispers, farewells, and plans gone thin.\nA chip grins where apologies couldn't preserve \u2014\nit keeps strangers' mornings and the small betrayals within.",
+      "input_tokens": 21,
+      "output_tokens": 312,
+      "latency_s": 5.325553894042969
+    }
+  },
+  {
+    "id": "creative-2",
+    "category": "creative",
+    "prompt": "Invent a brand name and one-line tagline for a startup that makes biodegradable phone cases.",
+    "claude": {
+      "text": "# EcoShell\n\n**\"Protection that returns to the earth.\"**",
+      "input_tokens": 31,
+      "output_tokens": 19,
+      "latency_s": 0.9233658313751221
+    },
+    "gpt": {
+      "text": "Here are a few concise options \u2014 brand name \u2014 one-line tagline. Want a specific tone (playful, premium, minimalist)? I can refine.\n\n1. SoilSkin \u2014 Protect your phone. Nourish the earth.\n2. ReLeaf \u2014 Protection that returns to nature.\n3. BloomCase \u2014 Built to protect. Designed to compost.\n4. VerdantCover \u2014 Green protection, guilt-free.\n5. TerraShell \u2014 Strong for you. Gentle on the planet.",
+      "input_tokens": 23,
+      "output_tokens": 743,
+      "latency_s": 9.529574871063232
+    }
+  },
+  {
+    "id": "reason-1",
+    "category": "reasoning",
+    "prompt": "A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost? Show your reasoning in two sentences.",
+    "claude": {
+      "text": "# Ball Cost Problem\n\nThe ball costs **$0.05**.\n\n**Reasoning:** Let b = the cost of the ball. Then the bat costs b + $1.00, and together they equal $1.10, giving us b + (b + $1.00) = $1.10. Solving this equation: 2b + $1.00 = $1.10, so 2b = $0.10, and b = $0.05.",
+      "input_tokens": 45,
+      "output_tokens": 107,
+      "latency_s": 2.0418481826782227
+    },
+    "gpt": {
+      "text": "Let x be the cost of the ball (in dollars), so the bat costs x + 1 and x + (x + 1) = 1.10 gives 2x + 1 = 1.10, hence 2x = 0.10 and x = 0.05. Therefore the ball costs $0.05 (and the bat costs $1.05).",
+      "input_tokens": 43,
+      "output_tokens": 475,
+      "latency_s": 6.080124855041504
+    }
+  },
+  {
+    "id": "reason-2",
+    "category": "reasoning",
+    "prompt": "Five machines take 5 minutes to make 5 widgets. How long would 100 machines take to make 100 widgets? Explain briefly.",
+    "claude": {
+      "text": "# Answer: 5 minutes\n\n## Explanation\n\nThe key is understanding the **production rate per machine**:\n\n- 5 machines make 5 widgets in 5 minutes\n- Therefore, 1 machine makes 1 widget in 5 minutes\n\nWith 100 machines working in parallel:\n- 100 machines make 100 widgets in the same **5 minutes**\n\nThe time doesn't change because we're scaling both the number of machines and the number of widgets proportionally. Each machine still takes 5 minutes to produce one widget.",
+      "input_tokens": 40,
+      "output_tokens": 126,
+      "latency_s": 2.0087971687316895
+    },
+    "gpt": {
+      "text": "5 minutes.\n\nReason: 5 machines make 5 widgets in 5 minutes, so one machine makes one widget in 5 minutes. If you have 100 machines, they can make 100 widgets in the same 5 minutes.",
+      "input_tokens": 34,
+      "output_tokens": 313,
+      "latency_s": 5.627735137939453
+    }
+  },
+  {
+    "id": "code-1",
+    "category": "coding",
+    "prompt": "Write a Python function `is_palindrome(s: str) -> bool` that ignores case and non-alphanumeric characters. Return just the function, no explanation.",
+    "claude": {
+      "text": "\n```python\ndef is_palindrome(s: str) -> bool:\n    cleaned = ''.join(char.lower() for char in s if char.isalnum())\n    return cleaned == cleaned[::-1]\n```",
+      "input_tokens": 45,
+      "output_tokens": 56,
+      "latency_s": 0.8962223529815674
+    },
+    "gpt": {
+      "text": "def is_palindrome(s: str) -> bool:\n    filtered = ''.join(ch.lower() for ch in s if ch.isalnum())\n    return filtered == filtered[::-1]",
+      "input_tokens": 38,
+      "output_tokens": 366,
+      "latency_s": 5.1502368450164795
+    }
+  },
+  {
+    "id": "code-2",
+    "category": "coding",
+    "prompt": "In SQL, write a query that returns the second-highest salary from a table `employees(id, name, salary)`. Return only the query.",
+    "claude": {
+      "text": "```sql\nSELECT MAX(salary) AS second_highest_salary\nFROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);\n```",
+      "input_tokens": 38,
+      "output_tokens": 35,
+      "latency_s": 0.9199380874633789
+    },
+    "gpt": {
+      "text": "SELECT MAX(salary) AS second_highest_salary FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",
+      "input_tokens": 36,
+      "output_tokens": 417,
+      "latency_s": 14.846381664276123
+    }
+  },
+  {
+    "id": "classify-1",
+    "category": "support-classification",
+    "prompt": "Classify this customer message into one of: billing, technical, account, other. Reply with the single label only.\n\nMessage: \"My card was charged twice for last month's subscription, please refund.\"",
+    "claude": {
+      "text": "billing",
+      "input_tokens": 50,
+      "output_tokens": 4,
+      "latency_s": 0.8187379837036133
+    },
+    "gpt": {
+      "text": "billing",
+      "input_tokens": 46,
+      "output_tokens": 74,
+      "latency_s": 2.150160074234009
+    }
+  },
+  {
+    "id": "classify-2",
+    "category": "support-classification",
+    "prompt": "Classify this customer message into one of: billing, technical, account, other. Reply with the single label only.\n\nMessage: \"The app crashes whenever I try to upload a photo on Android 14.\"",
+    "claude": {
+      "text": "technical",
+      "input_tokens": 50,
+      "output_tokens": 4,
+      "latency_s": 1.0258657932281494
+    },
+    "gpt": {
+      "text": "technical",
+      "input_tokens": 48,
+      "output_tokens": 10,
+      "latency_s": 1.123072862625122
+    }
+  }
+]
