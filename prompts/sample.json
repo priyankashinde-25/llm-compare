@@ -1,0 +1,52 @@
+[
+  {
+    "id": "fact-1",
+    "category": "factual",
+    "prompt": "In one short paragraph, explain what mitochondria do in a cell."
+  },
+  {
+    "id": "fact-2",
+    "category": "factual",
+    "prompt": "Name three differences between TCP and UDP. Be concise."
+  },
+  {
+    "id": "creative-1",
+    "category": "creative",
+    "prompt": "Write a four-line poem about a coffee mug that has seen too much."
+  },
+  {
+    "id": "creative-2",
+    "category": "creative",
+    "prompt": "Invent a brand name and one-line tagline for a startup that makes biodegradable phone cases."
+  },
+  {
+    "id": "reason-1",
+    "category": "reasoning",
+    "prompt": "A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost? Show your reasoning in two sentences."
+  },
+  {
+    "id": "reason-2",
+    "category": "reasoning",
+    "prompt": "Five machines take 5 minutes to make 5 widgets. How long would 100 machines take to make 100 widgets? Explain briefly."
+  },
+  {
+    "id": "code-1",
+    "category": "coding",
+    "prompt": "Write a Python function `is_palindrome(s: str) -> bool` that ignores case and non-alphanumeric characters. Return just the function, no explanation."
+  },
+  {
+    "id": "code-2",
+    "category": "coding",
+    "prompt": "In SQL, write a query that returns the second-highest salary from a table `employees(id, name, salary)`. Return only the query."
+  },
+  {
+    "id": "classify-1",
+    "category": "support-classification",
+    "prompt": "Classify this customer message into one of: billing, technical, account, other. Reply with the single label only.\n\nMessage: \"My card was charged twice for last month's subscription, please refund.\""
+  },
+  {
+    "id": "classify-2",
+    "category": "support-classification",
+    "prompt": "Classify this customer message into one of: billing, technical, account, other. Reply with the single label only.\n\nMessage: \"The app crashes whenever I try to upload a photo on Android 14.\""
+  }
+]
